@@ -1,0 +1,53 @@
+<div class="layout">
+    <div class="list-container">
+        <adf-datatable *ngIf="communityPharmacies"
+                       [rows]="communityPharmacies"
+                       [loading]="loading"
+                       [display]="display"
+                       (rowClick)="select($event.value)">
+            <data-columns>
+                <data-column key="name" title="Name" sortable="true"></data-column>
+                <data-column key="pin" title="PIN" sortable="true"></data-column>
+                <data-column key="phone" title="Telephone Number" sortable="true"></data-column>
+                <data-column key="address" title="Address" class="full-width ellipsis-cell"></data-column>
+                <data-column key="active" title="Active" sortable="true">
+                    <ng-template let-context="$implicit">
+                        <mat-checkbox [checked]="context.row.getValue('active')"></mat-checkbox>
+                    </ng-template>
+                </data-column>
+            </data-columns>
+            <adf-loading-content-template>
+                <ng-template>
+                    <mat-progress-spinner
+                            class="adf-document-list-loading-margin"
+                            [color]="'primary'"
+                            [mode]="'indeterminate'">
+                    </mat-progress-spinner>
+                </ng-template>
+            </adf-loading-content-template>
+        </adf-datatable>
+    </div>
+    <adf-empty-content
+            *ngIf="!communityPharmacies"
+            icon="blur_on"
+            [title]="'No Community Pharmacies found'"
+            [subtitle]="'No Community Pharmacies matching search criteria or no Community Pharmacies available'">
+    </adf-empty-content>
+    <ngb-pagination [collectionSize]="totalItems"
+                    [(page)]="page"
+                    [pageSize]="itemsPerPage"
+                    [maxSize]="5"
+                    size="sm"
+                    [rotate]="true"
+                    [boundaryLinks]="true"
+                    (pageChange)="loadPage(page)">
+    </ngb-pagination>
+
+</div>
+<div class="fab-container">
+    <button mat-fab
+            [matTooltip]="'Add New Community Pharmacy'"
+            [routerLink]="['new']">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

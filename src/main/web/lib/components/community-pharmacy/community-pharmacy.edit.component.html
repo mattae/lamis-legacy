@@ -1,0 +1,116 @@
+<div class="lamis-edit-form">
+    <div class="lamis-edit-form-container">
+        <form name="form" role="form" novalidate (ngSubmit)="save()" #cpForm="ngForm">
+            <mat-card class="default">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>Name</mat-label>
+                                <input matInput name="name" #name="ngModel"
+                                       required
+                                       [(ngModel)]="entity.name"/>
+                                <mat-error
+                                        *ngIf="name.errors && (name.dirty || name.touched) && (name.errors.required)">
+                                    Community Pharmacy name is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>PIN</mat-label>
+                                <input matInput name="pin" #pin="ngModel"
+                                       required
+                                       [(ngModel)]="entity.pin"/>
+                                <mat-error
+                                        *ngIf="pin.errors && (pin.dirty || pin.touched) && (pin.errors.required)">
+                                    PIN is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>State</mat-label>
+                                <mat-select name="state" [(ngModel)]="entity.state"
+                                            [compareWith]="entityCompare"
+                                            required
+                                            #s="ngModel"
+                                            (selectionChange)="stateChange($event.value.id)">
+                                    <mat-option></mat-option>
+                                    <mat-option *ngFor="let state of states" [value]="state">{{state.name}}</mat-option>
+                                </mat-select>
+                                <mat-error
+                                        *ngIf="s.errors && (s.dirty || s.touched || !!entity.id) && (s.errors.required)">
+                                    State is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>LGA</mat-label>
+                                <mat-select name="lga" [(ngModel)]="entity.lga" required #l="ngModel"
+                                            [compareWith]="entityCompare">
+                                    <mat-option></mat-option>
+                                    <mat-option *ngFor="let lga of lgas" [value]="lga">{{lga.name}}</mat-option>
+                                </mat-select>
+                                <mat-error
+                                        *ngIf="l.errors && (l.dirty || l.touched || !!entity.id) && (l.errors.required)">
+                                    LGA is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>Address</mat-label>
+                                <textarea matInput name="address" [(ngModel)]="entity.address" #address="ngModel"
+                                          rows="2" >
+                                </textarea>
+                                <mat-error
+                                        *ngIf="address.errors && (address.dirty || address.touched) && (address.errors.required)">
+                                    Community Pharmacy address is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput name="email" type="email" #email="ngModel"
+                                       [(ngModel)]="entity.email"/>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>Telephone</mat-label>
+                                <input matInput name="phone" phoneNumber [(ngModel)]="entity.phone"
+                                       #phone="ngModel"/>
+                                <mat-error
+                                        *ngIf="phone.errors && (phone.dirty || phone.touched) && (phone.errors.invalidPhone)">
+                                    Invalid phone number
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-checkbox name="active" [(ngModel)]="entity.active">Active</mat-checkbox>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions class="lamis-edit-form-actions">
+                    <button mat-raised-button type="button" (click)="previousState()">Back</button>
+                    <button mat-raised-button color='primary'
+                            [disabled]="cpForm.invalid || isSaving"
+                            type="submit">
+                        {{entity.id !== undefined ? 'Update' : 'Save'}}
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+</div>
