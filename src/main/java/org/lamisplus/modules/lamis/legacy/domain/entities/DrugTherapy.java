@@ -36,8 +36,8 @@ public class DrugTherapy extends TransactionEntity implements Serializable {
     private LocalDate dateVisit;
 
     @Size(max = 100)
-    @Column(name = "OIS")
-    private String ois;
+    @Column(name = "OIDS")
+    private String oids;
 
     @Size(max = 5)
     @Column(name = "THERAPY_PROBLEM_SCREENED")
