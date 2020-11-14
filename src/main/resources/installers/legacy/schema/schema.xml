@@ -2871,6 +2871,28 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="20200622221876-01" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="clinic_adverse_drug_reaction" columnName="severity"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="clinic_adverse_drug_reaction">
+            <column name="severity" type="varchar(16)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20200622221876-02" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="patient" columnName="dob_estimated"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="patient">
+            <column name="dob_estimated" type="boolean" defaultValue="false"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="20200304123505-151" author="mattae">
         <addForeignKeyConstraint baseTableName="clinic_adhere" baseColumnNames="clinic_id"
                                  constraintName="fk_clinic_adhere_clinic_id" referencedTableName="clinic"
