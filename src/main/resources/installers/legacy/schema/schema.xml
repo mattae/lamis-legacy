@@ -2871,11 +2871,14 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20200622221876-01" author="mattae">
+    <changeSet id="20200622221876-010" author="mattae">
         <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="clinic_adverse_drug_reaction" columnName="severity"/>
-            </not>
+            <tableExists tableName="clinic_adverse_drug_reaction"/>
+            <and>
+                <not>
+                    <columnExists tableName="clinic_adverse_drug_reaction" columnName="severity"/>
+                </not>
+            </and>
         </preConditions>
         <addColumn tableName="clinic_adverse_drug_reaction">
             <column name="severity" type="varchar(16)"/>
@@ -5697,10 +5700,68 @@
         </dropColumn>
     </changeSet>
 
-    <changeSet id="" author="">
+    <changeSet id="20201115230427-01" author="mattae">
         <preConditions onFail="MARK_RAN">
             <columnExists tableName="drug_therapy" columnName="adhrence_issues"/>
         </preConditions>
         <renameColumn tableName="drug_therapy" oldColumnName="adhrence_issues" newColumnName="adherence_issues"/>
+    </changeSet>
+
+    <changeSet id="20201115230427-02" author="mattae">
+        <sql>
+            update regimen_resolver set regimen = 'ABC-DDI-LPV/r' where regimensys =
+            'ABC(300mg)+DDI(400mg)+LPV/r(200/50mg)';
+            update regimen_resolver set regimen = '3TC-FTC-NVP' where regimensys = '3TC/FTC(300/300mg)+NVP(200mg)';
+            update regimen_resolver set regimen = 'ABC-3TC-ATV/r' where regimensys =
+            'ABC(300mg)+3TC(150mg)+ATV/r(300/100mg)';
+            update regimen_resolver set regimen = '3TC-FTC-LPV/r' where regimensys =
+            '3TC/FTC(300/300mg)+LPV/r(200/50mg)';
+            update regimen_resolver set regimen = 'ABC-DDI-IDV/r' where regimensys =
+            'ABC(300mg)+DDI(400mg)+IDV/r(400/50mg)';
+            update regimen_resolver set regimen = '3TC-FTC-EFV' where regimensys = '3TC/FTC(300/300mg)+EFV(600mg)';
+            update regimen_resolver set regimen = 'd4T-3TC-LPV/r' where regimensys =
+            'd4T(30mg)+3TC(150mg)+LPV/r(200/50mg)';
+            update regimen_resolver set regimen = 'AZT-TDF-3TC-ATV/r' where regimensys =
+            'AZT(300mg)+TDF(300mg)+3TC(150mg)+ATV/r(300mg/100mg)';
+            update regimen_resolver set regimen = 'ABC-3TC-EFV' where regimensys = 'ABC(300mg)+3TC(150mg)+EFV(600mg)';
+            update regimen_resolver set regimen = '3TC-FTC-ATV/r' where regimensys =
+            '3TC/FTC(300/300mg)+ATV/r(300/100mg)';
+            update regimen_resolver set regimen = 'ABC-3TC-NVP' where regimensys = 'ABC(300mg)+3TC(150mg)+NVP(200mg)';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20201115230427-03" author="mattae">
+        <sql>
+            insert into item(item_id, description) values(110, 'Abacavir 120mg');
+            insert into item(item_id, description) values(111, 'Lopinavir/Ritonavir 100/25mg');
+            insert into drug(id, abbrev, name, strength, pack_size, doseform, morning, afternoon, evening, item_id)
+            values
+            (110, 'LPV/r', 'Abacavir', '120mg', 60, 'Tablets', 1, 0, 1, 110);
+            insert into drug(id, abbrev, name, strength, pack_size, doseform, morning, afternoon, evening, item_id)
+            values
+            (111, 'ABC', 'Lopinavir/Ritonavir', '100/25mg', 60, 'Capsules', 1, 0, 1, 111);
+            insert into regimen(id, description, composition, regimen_type_id, active, priority) values(202,
+            'ABC(120mg)+3TC(60mg)+LPV/r(100mg/25mg)', 'Abacavir+Lamivudine+Lopinavir/Ritonavir', 3, true, 1);
+            insert into regimen_drug(id, regimen_id, drug_id) values(503, 202, 110);
+            insert into regimen_drug(id, regimen_id, drug_id) values(504, 202, 37);
+            insert into regimen_drug(id, regimen_id, drug_id) values(505, 202, 111);
+            insert into regimen(id, description, composition, regimen_type_id, active, priority) values(203,
+            'ABC(120mg)+3TC(60mg)+LPV/r(40mg/10mg)', 'Abacavir+Lamivudine+Lopinavir/Ritonavir', 3, true, 1);
+            insert into regimen_drug(id, regimen_id, drug_id) values(506, 203, 110);
+            insert into regimen_drug(id, regimen_id, drug_id) values(507, 203, 37);
+            insert into regimen_drug(id, regimen_id, drug_id) values(508, 203, 101);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20201115230427-04" author="mattae">
+        <sql>
+            UPDATE patient SET extra = '{"art": true}' where extra is null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20201117154318-01" author="mattae">
+        <addColumn tableName="eac">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

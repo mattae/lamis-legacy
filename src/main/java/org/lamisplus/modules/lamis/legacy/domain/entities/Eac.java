@@ -1,8 +1,10 @@
 package org.lamisplus.modules.lamis.legacy.domain.entities;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -48,4 +50,8 @@ public class Eac extends TransactionEntity implements Serializable {
 
     @Column(name = "DATE_LAST_VIRAL_LOAD")
     private LocalDate dateLastViralLoad;
+
+    @Type(type = "jsonb-node")
+    @Column(columnDefinition = "jsonb")
+    private JsonNode extra;
 }
