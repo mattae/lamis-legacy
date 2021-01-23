@@ -140,10 +140,6 @@ public class Patient extends TransactionEntity implements Serializable {
     @ManyToOne
     private CaseManager caseManager;
 
-    @JoinColumn(name = "COMMUNITY_PHARMACY_ID")
-    @ManyToOne
-    private CommunityPharmacy communityPharmacy;
-
     @Column(name = "DATE_STARTED")
     private LocalDate dateStarted;
 

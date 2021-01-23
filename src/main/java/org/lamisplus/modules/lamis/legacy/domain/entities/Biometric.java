@@ -51,6 +51,8 @@ public class Biometric implements Serializable, Persistable<String> {
 
     private Boolean archived = false;
 
+    private Boolean iso = false;
+
     private LocalDateTime lastModified;
 
     @Override

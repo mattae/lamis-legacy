@@ -1672,6 +1672,12 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200304123505-136-0-1-01" author="mattae">
+        <sql>
+            UPDATE clinic SET regimen_id = 116 WHERE regimen_id = 123;
+        </sql>
+    </changeSet>
+
     <changeSet id="20200304123505-136-0-1" author="mattae">
         <sqlFile path="installers/legacy/schema/removeduplicatedtg.sql" splitStatements="false"/>
     </changeSet>
@@ -5204,6 +5210,16 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200803117505-2-01-00" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="laboratory_line"/>
+        </preConditions>
+        <sql>
+            update laboratory_line set result = replace(result, '&lt;', '');
+            update laboratory_line set result = replace(result, '&gt;', '');
+            update laboratory_line set result = '0' where upper(result) = 'TND';
+        </sql>
+    </changeSet>
 
     <changeSet id="20200803117505-2-01" author="mattae">
         <sql>
@@ -5559,7 +5575,10 @@
         </sql>
     </changeSet>
 
-    <changeSet id="20200803117505-3-01" author="mattae">
+    <changeSet id="20200803117505-3-01-1" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="laboratory_line"/>
+        </preConditions>
         <sql>
             update devolve set related_pharmacy_id = null where related_pharmacy_id not in (select distinct pharmacy_id
             from pharmacy_line);
@@ -5568,7 +5587,6 @@
             update devolve set related_cd4_id = null where related_cd4_id not in (select distinct laboratory_id from
             laboratory_line);
 
-            delete from pharmacy where id not in (select distinct pharmacy_id from pharmacy_line);
             delete from laboratory where id not in (select distinct laboratory_id from laboratory_line);
         </sql>
     </changeSet>
@@ -5658,8 +5676,10 @@
         </addColumn>
     </changeSet>
 
-
-    <changeSet id="20201009072338-03" author="mattae">
+    <changeSet id="20201009072338-03-1" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="chronic_care_dm"/>
+        </preConditions>
         <sqlFile path="installers/legacy/schema/migrate_relationships.sql" splitStatements="false"/>
     </changeSet>
 
@@ -5762,6 +5782,50 @@
     <changeSet id="20201117154318-01" author="mattae">
         <addColumn tableName="eac">
             <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20201119130431-01" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="drug_therapy" columnName="ois"/>
+        </preConditions>
+        <renameColumn tableName="drug_therapy" oldColumnName="ois" newColumnName="oids"/>
+    </changeSet>
+
+    <changeSet id="20201119130431-02" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="encounter" columnName="communitypharm_id"/>
+        </preConditions>
+        <dropColumn tableName="encounter" columnName="communitypharm_id"/>
+    </changeSet>
+
+    <changeSet id="20201119130431-03" author="mattae">
+        <sql>
+            update clinic set opportunistic_infections = null;
+            update clinic set adheres = null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20201211130629-01" author="mattae">
+        <sql>
+            insert into item(item_id, description) values(112, 'Pyridoxine(25mg)');
+            insert into drug(id, abbrev, name, strength, pack_size, doseform, morning, afternoon, evening, item_id)
+            values
+            (112, 'Hian', 'Pyridoxine(25mg)', '25mg', 60, 'Tablets', 1, 0, 0, 112);
+            insert into regimen(id, description, composition, regimen_type_id, active, priority) values(204,
+            'Isoniazid(300mg)/Pyridoxine(25mg)/Cotrimoxazole(960mg)', 'Isoniazid+Pyridoxine+Cotrimoxazole', 15, true,
+            1);
+            insert into regimen_drug(id, regimen_id, drug_id) values(509, 204, 99);
+            insert into regimen_drug(id, regimen_id, drug_id) values(510, 204, 112);
+            insert into regimen_drug(id, regimen_id, drug_id) values(511, 204, 41);
+        </sql>
+    </changeSet>
+
+    <changeSet id="20210119140723-01" author="mattae">
+        <addColumn tableName="biometric">
+            <column name="iso" type="boolean" defaultValue="false" defaultValueComputed="false">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
     </changeSet>
 </databaseChangeLog>

@@ -1,5 +1,6 @@
 package org.lamisplus.modules.lamis.legacy.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.domain.Persistable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Table(name = "ADHERE")
 @Data
 @EqualsAndHashCode(of = "description")
+@JsonIgnoreProperties("new")
 public class Adhere implements Serializable, Persistable<Long> {
 
     private static final long serialVersionUID = 1L;

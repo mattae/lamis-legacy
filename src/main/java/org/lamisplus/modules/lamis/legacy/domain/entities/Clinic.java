@@ -103,7 +103,7 @@ public class Clinic extends TransactionEntity implements Serializable {
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    Set<ClinicOpportunisticInfection> opportunisticInfections = new HashSet<>();
+    Set<OpportunisticInfection> opportunisticInfections = new HashSet<>();
 
     @Size(max = 5)
     @Column(name = "ADR_SCREENED")

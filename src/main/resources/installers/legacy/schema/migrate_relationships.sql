@@ -71,8 +71,10 @@ CREATE OR REPLACE FUNCTION migrate_chronic_care_dm() RETURNS VOID AS $$
 			UPDATE chronic_care p SET dm_screens = (
 				SELECT array_to_json(array_agg(row_to_json(t))) FROM (
 	                SELECT description answer, (SELECT row_to_json(t) FROM (
-		                SELECT id, description FROM tb_screen where id = adr.tb_screen_id
-		            ) t) question FROM chronic_care_dm adr WHERE chronic_care_id = rec.id
+                                                                               SELECT id, description
+                                                                               FROM tb_screen
+                                                                               where id = adr.dm_screen_id
+                                                                           ) t) question FROM chronic_care_dm adr WHERE chronic_care_id = rec.id
 		           AND (archived = false OR (archived = true AND rec.archived = true))
                 ) t
 			) WHERE id = rec.id;
