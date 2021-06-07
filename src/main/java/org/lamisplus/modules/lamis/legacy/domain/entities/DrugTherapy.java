@@ -28,7 +28,7 @@ public class DrugTherapy extends TransactionEntity implements Serializable {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "COMMUNITY_PHARMACY_ID")
-    private CommunityPharmacy communityPharmacy;
+    private DDDOutlet DDDOutlet;
 
     @Basic(optional = false)
     @NotNull

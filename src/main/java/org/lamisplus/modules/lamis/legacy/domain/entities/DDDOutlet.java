@@ -25,11 +25,11 @@ import java.util.UUID;
  * @author User10
  */
 @Entity
-@Table(name = "COMMUNITY_PHARMACY")
-@SQLDelete(sql = "update community_pharmacy set archived = true, last_modified = current_timestamp where id = ?", check = ResultCheckStyle.COUNT)
+@Table(name = "ddd_outlet")
+@SQLDelete(sql = "update ddd_outlet set archived = true, last_modified = current_timestamp where id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "archived = false")
 @Data
-public class CommunityPharmacy implements Serializable, Persistable<Long> {
+public class DDDOutlet implements Serializable, Persistable<Long> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,7 +37,6 @@ public class CommunityPharmacy implements Serializable, Persistable<Long> {
     @Basic(optional = false)
     private Long id;
 
-    @Basic(optional = false)
     @NotNull
     @JoinColumn(name = "LGA_ID")
     @ManyToOne
@@ -64,9 +63,10 @@ public class CommunityPharmacy implements Serializable, Persistable<Long> {
     @Column(name = "EMAIL")
     private String email;
 
-    @Size(max = 13)
     @Column(name = "PIN")
     private String pin;
+
+    private String type;
 
     private Boolean archived = false;
 
@@ -81,18 +81,18 @@ public class CommunityPharmacy implements Serializable, Persistable<Long> {
         lastModified = LocalDateTime.now();
         uuid = UUID.randomUUID().toString();
 
-        name = WordUtils.capitalize(name);
-        address = WordUtils.capitalize(StringUtils.replace(address, ",", ", ").replaceAll("\\s+", " "));
+        name = WordUtils.capitalize(StringUtils.lowerCase(name));
+        address = WordUtils.capitalize(StringUtils.replace(StringUtils.lowerCase(address), ",", ", ").replaceAll("\\s+", " "));
     }
 
     @PreUpdate
     public void preUpdate() {
         lastModified = LocalDateTime.now();
 
-        name = WordUtils.capitalize(name);
+        name = WordUtils.capitalize(StringUtils.lowerCase(name));
         address = WordUtils.capitalize(
-                StringUtils.trimToEmpty(StringUtils.replace(address, ",", ", "))
-                        .replaceAll("\\s+", " "));
+            StringUtils.trimToEmpty(StringUtils.replace(StringUtils.lowerCase(address), ",", ", "))
+                .replaceAll("\\s+", " "));
     }
 
     @Override

@@ -4,7 +4,6 @@ import lombok.Data;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -35,7 +34,7 @@ public class Appointment extends TransactionEntity implements Serializable {
     @NotNull
     @JoinColumn(name = "COMMUNITY_PHARMACY_ID")
     @ManyToOne
-    private CommunityPharmacy communityPharmacy;
+    private DDDOutlet DDDOutlet;
 
     @Column(name = "DATE_LAST_VISIT")
     private LocalDate dateLastVisit;

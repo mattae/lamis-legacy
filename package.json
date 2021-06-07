@@ -1,23 +1,15 @@
 {
-  "name": "lamis-facility-1.2.0",
-  "version": "1.0.0",
-  "main": "./bundles/lamis-facility.umd.js",
-  "module": "./fesm5/lamis-facility.js",
-  "es2015": "./fesm2015/lamis-facility.js",
-  "esm5": "./esm5/lamis-facility.js",
-  "esm2015": "./esm2015/lamis-facility.js",
-  "fesm5": "./fesm5/lamis-facility.js",
-  "fesm2015": "./fesm2015/lamis-facility.js",
-  "typings": "./lamis-facility.d.ts",
-  "scripts": {
-    "build": "ng-packagr -p package.json",
-    "test": "karma start",
-    "test:watch": "karma start karma.conf.js --single-run false",
-    "pack:lib": "npm run build && npm pack ./dist",
-    "publish:lib": "npm run build && npm publish ./dist",
-    "publish:lib:next": "npm run build && npm publish --tag next ./dist",
-    "compodoc": "compodoc -p tsconfig.json",
-    "compodoc:serve": "compodoc -s"
+    "name": "lamis-facility",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "ng-packagr -p package.json",
+        "test": "karma start",
+        "test:watch": "karma start karma.conf.js --single-run false",
+        "pack:lib": "npm run build && npm pack ./dist",
+        "publish:lib": "npm run build && npm publish ./dist",
+        "publish:lib:next": "npm run build && npm publish --tag next ./dist",
+        "compodoc": "compodoc -p tsconfig.json",
+        "compodoc:serve": "compodoc -s"
   },
   "private": true,
   "peerDependencies": {

@@ -2,7 +2,7 @@ package org.lamisplus.modules.lamis.legacy.domain.entities.enumerations;
 
 public enum ClientStatus {
     ART_START("ART Start"), ART_RESTART("ART Restart"), KNOWN_DEATH("Died (Confirmed)"), ART_TRANSFER_OUT("ART Transfer Out"),
-    PRE_ART_TRANSFER_OUT("Pre-ART Transfer Out"), LOST_TO_FOLLOWUP("Lost To Followup"),
+    PRE_ART_TRANSFER_OUT("Pre-ART Transfer Out"), LOST_TO_FOLLOWUP("IIT"), RETURN_TO_CARE("Return to Care"),
     PREVIOUSLY_UNDOCUMENTED_TRANSFER_CONFIRMED("Previously Undocumented Patient Transfer (Confirmed)"),
     TRACED_UNABLE_TO_LOCATE("Traced Patient (Unable to locate)"), TRACED_AGREED_TO_RETURN_TO_CARE("Traced Patient and agreed to return to care"),
     DID_NOT_ATTEMPT_TO_TRACE("Did Not Attempt to Trace Patient"), HIV_EXPOSED_STATUS_UNKNOWN("HIV Exposed Status Unknown"),

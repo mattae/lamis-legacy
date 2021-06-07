@@ -11,8 +11,31 @@
                                        required
                                        [(ngModel)]="entity.name"/>
                                 <mat-error
-                                        *ngIf="name.errors && (name.dirty || name.touched) && (name.errors.required)">
-                                    Community Pharmacy name is required
+                                    *ngIf="name.errors && (name.dirty || name.touched) && (name.errors.required)">
+                                    DDD Outlet name is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>Type</mat-label>
+                                <mat-select [(ngModel)]="entity.type"
+                                            #type="ngModel" required name="type">
+                                    <mat-option></mat-option>
+                                    <mat-option [value]="'CPARP'">CPARP</mat-option>
+                                    <mat-option [value]="'S-CARG'">S-CARG</mat-option>
+                                    <mat-option [value]="'F-CARG'">F-CARG</mat-option>
+                                    <mat-option [value]="'Fast Track'">Fast Track</mat-option>
+                                    <mat-option [value]="'CARC'">CARC</mat-option>
+                                    <mat-option [value]="'DARF'">DARF</mat-option>
+                                    <mat-option [value]="'ARC'">Adolescent Refill Club</mat-option>
+                                    <mat-option [value]="'Home Delivery'">Home Delivery</mat-option>
+                                </mat-select>
+                                <mat-error
+                                    *ngIf="type.errors && (type.dirty || type.touched) && (type.errors.required)">
+                                    DDD Outlet type is required
                                 </mat-error>
                             </mat-form-field>
                         </div>
@@ -23,7 +46,7 @@
                                        required
                                        [(ngModel)]="entity.pin"/>
                                 <mat-error
-                                        *ngIf="pin.errors && (pin.dirty || pin.touched) && (pin.errors.required)">
+                                    *ngIf="pin.errors && (pin.dirty || pin.touched) && (pin.errors.required)">
                                     PIN is required
                                 </mat-error>
                             </mat-form-field>
@@ -42,7 +65,7 @@
                                     <mat-option *ngFor="let state of states" [value]="state">{{state.name}}</mat-option>
                                 </mat-select>
                                 <mat-error
-                                        *ngIf="s.errors && (s.dirty || s.touched || !!entity.id) && (s.errors.required)">
+                                    *ngIf="s.errors && (s.dirty || s.touched || !!entity.id) && (s.errors.required)">
                                     State is required
                                 </mat-error>
                             </mat-form-field>
@@ -56,7 +79,7 @@
                                     <mat-option *ngFor="let lga of lgas" [value]="lga">{{lga.name}}</mat-option>
                                 </mat-select>
                                 <mat-error
-                                        *ngIf="l.errors && (l.dirty || l.touched || !!entity.id) && (l.errors.required)">
+                                    *ngIf="l.errors && (l.dirty || l.touched || !!entity.id) && (l.errors.required)">
                                     LGA is required
                                 </mat-error>
                             </mat-form-field>
@@ -67,10 +90,10 @@
                             <mat-form-field class="full-width">
                                 <mat-label>Address</mat-label>
                                 <textarea matInput name="address" [(ngModel)]="entity.address" #address="ngModel"
-                                          rows="2" >
+                                          rows="2">
                                 </textarea>
                                 <mat-error
-                                        *ngIf="address.errors && (address.dirty || address.touched) && (address.errors.required)">
+                                    *ngIf="address.errors && (address.dirty || address.touched) && (address.errors.required)">
                                     Community Pharmacy address is required
                                 </mat-error>
                             </mat-form-field>
@@ -90,7 +113,7 @@
                                 <input matInput name="phone" phoneNumber [(ngModel)]="entity.phone"
                                        #phone="ngModel"/>
                                 <mat-error
-                                        *ngIf="phone.errors && (phone.dirty || phone.touched) && (phone.errors.invalidPhone)">
+                                    *ngIf="phone.errors && (phone.dirty || phone.touched) && (phone.errors.invalidPhone)">
                                     Invalid phone number
                                 </mat-error>
                             </mat-form-field>

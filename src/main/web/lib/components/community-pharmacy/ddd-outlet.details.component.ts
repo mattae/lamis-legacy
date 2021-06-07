@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CardViewBoolItemModel, CardViewItem, CardViewTextItemModel, NotificationService } from '@alfresco/adf-core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService } from '@covalent/core';
-import { CommunityPharmacy } from '../../model/community-pharmacy.model';
-import { CommunityPharmacyService } from '../../services/community-pharmacy.service';
+import { DDDOutlet } from '../../model/ddd-outlet.model';
+import { DddOutletService } from '../../services/ddd-outlet.service';
 
 @Component({
-    selector: 'community-pharmacy-details',
-    templateUrl: './community-pharmacy.details.component.html'
+    selector: 'ddd-outlet-details',
+    templateUrl: './ddd-outlet.details.component.html'
 })
-export class CommunityPharmacyDetailsComponent implements OnInit{
+export class DddOutletDetailsComponent implements OnInit {
     properties: CardViewItem[] = [];
-    entity: CommunityPharmacy;
+    entity: DDDOutlet;
 
-    constructor(private router: Router, private route: ActivatedRoute, private service: CommunityPharmacyService,
+    constructor(private router: Router, private route: ActivatedRoute, private service: DddOutletService,
                 private _dialogService: TdDialogService,
                 private notificationService: NotificationService) {
     }
@@ -56,6 +56,11 @@ export class CommunityPharmacyDetailsComponent implements OnInit{
             label: 'Name',
             key: 'cs',
             value: this.entity.name
+        }));
+        this.properties.push(new CardViewTextItemModel({
+            label: 'Type',
+            key: 'tp',
+            value: this.entity.type
         }));
         this.properties.push(new CardViewTextItemModel({
             label: 'Address',

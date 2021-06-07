@@ -1,13 +1,12 @@
 package org.lamisplus.modules.lamis.legacy.domain.entities;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.ResultCheckStyle;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@SQLDelete(sql = "update assessment set archived = true where id = ?", check = ResultCheckStyle.COUNT)
+@SQLDelete(sql = "update biometric set archived = true where id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "archived = false")
 public class Biometric implements Serializable, Persistable<String> {
 
@@ -54,6 +53,10 @@ public class Biometric implements Serializable, Persistable<String> {
     private Boolean iso = false;
 
     private LocalDateTime lastModified;
+
+    @Type(type = "jsonb-node")
+    @Column(columnDefinition = "jsonb")
+    private JsonNode extra;
 
     @Override
     public boolean isNew() {

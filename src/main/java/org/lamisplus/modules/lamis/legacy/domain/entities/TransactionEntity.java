@@ -31,7 +31,6 @@ public abstract class TransactionEntity implements Serializable, Persistable<Lon
     @Column(name = "UUID")
     protected String uuid;
 
-    @Basic(optional = false)
     @NotNull
     @ManyToOne
     @JoinColumn(name = "FACILITY_ID")

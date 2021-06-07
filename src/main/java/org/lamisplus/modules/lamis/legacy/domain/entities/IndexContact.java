@@ -1,8 +1,11 @@
 package org.lamisplus.modules.lamis.legacy.domain.entities;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -16,6 +19,7 @@ import java.time.LocalDate;
 @SQLDelete(sql = "update index_contact set archived = true, last_modified = current_timestamp where id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "archived = false")
 @Data
+@EqualsAndHashCode(of = "id", callSuper = true)
 public class IndexContact extends TransactionEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,8 +35,8 @@ public class IndexContact extends TransactionEntity implements Serializable {
     private String contactType;
 
     @Size(max = 100)
-    @Column(name = "INDEXCONTACT_CODE")
-    private String indexcontactCode;
+    @Column(name = "INDEX_CONTACT_CODE")
+    private String indexContactCode;
 
     @Size(max = 100)
     @Column(name = "SURNAME")
@@ -44,13 +48,6 @@ public class IndexContact extends TransactionEntity implements Serializable {
 
     @Column(name = "DATE_BIRTH")
     private LocalDate dateBirth;
-
-    @Column(name = "AGE")
-    private Integer age;
-
-    @Size(max = 15)
-    @Column(name = "AGE_UNIT")
-    private String ageUnit;
 
     @Size(max = 20)
     @Column(name = "GENDER")
@@ -117,6 +114,10 @@ public class IndexContact extends TransactionEntity implements Serializable {
     @Size(max = 100)
     @Column(name = "RELATIONSHIP")
     private String relationship;
+
+    @Type(type = "jsonb-node")
+    @Column(columnDefinition = "jsonb")
+    private JsonNode extra;
 
     @JoinColumn(name = "HTS_ID")
     @ManyToOne(optional = false)

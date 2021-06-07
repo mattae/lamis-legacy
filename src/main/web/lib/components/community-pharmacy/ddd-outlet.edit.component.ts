@@ -4,31 +4,31 @@ import { ActivatedRoute } from '@angular/router';
 import { AppLoaderService, entityCompare } from '@lamis/web-core';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { CommunityPharmacyService } from '../../services/community-pharmacy.service';
-import { CommunityPharmacy } from '../../model/community-pharmacy.model';
+import { DddOutletService } from '../../services/ddd-outlet.service';
+import { DDDOutlet } from '../../model/ddd-outlet.model';
 import { FacilityService } from '../../services/facility.service';
 import { Facility } from '../../model/facility.model';
 
 @Component({
-    selector: 'community-pharmacy-edit',
-    templateUrl: './community-pharmacy.edit.component.html'
+    selector: 'ddd-outlet-edit',
+    templateUrl: './ddd-outlet.edit.component.html'
 })
-export class CommunityPharmacyEditComponent implements OnInit {
-    entity: CommunityPharmacy;
+export class DddOutletEditComponent implements OnInit {
+    entity: DDDOutlet;
     state: any;
     states: any[] = [];
     lgas: any[] = [];
     isSaving: boolean;
 
-    constructor(private service: CommunityPharmacyService,
+    constructor(private service: DddOutletService,
                 protected notification: NotificationService,
                 private facilityService: FacilityService,
                 protected activatedRoute: ActivatedRoute,
                 private appLoaderService: AppLoaderService) {
     }
 
-    createEntity(): CommunityPharmacy {
-        return <CommunityPharmacy>{};
+    createEntity(): DDDOutlet {
+        return <DDDOutlet>{};
     }
 
     ngOnInit(): void {

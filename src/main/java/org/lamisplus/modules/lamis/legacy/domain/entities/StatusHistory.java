@@ -3,6 +3,7 @@ package org.lamisplus.modules.lamis.legacy.domain.entities;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
@@ -18,14 +19,14 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "STATUS_HISTORY")
 @Data
-@EqualsAndHashCode(of = "id", callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @SQLDelete(sql = "update status_history set archived = true, last_modified = current_timestamp where id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "archived = false")
+@ToString(of = {"patient", "status", "dateStatus"})
 public class StatusHistory extends TransactionEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Basic(optional = false)
     @NotNull
     @JoinColumn(name = "PATIENT_ID")
     @ManyToOne

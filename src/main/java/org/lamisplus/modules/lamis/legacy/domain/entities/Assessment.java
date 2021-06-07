@@ -5,9 +5,12 @@
  */
 package org.lamisplus.modules.lamis.legacy.domain.entities;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -20,6 +23,7 @@ import java.time.LocalDate;
 @Table(name = "ASSESSMENT")
 @SQLDelete(sql = "update assessment set archived = true, last_modified = current_timestamp where id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "archived = false")
+@EqualsAndHashCode(of = "id", callSuper = true)
 public class Assessment extends TransactionEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,6 +71,10 @@ public class Assessment extends TransactionEntity implements Serializable {
     private Integer sti7;
 
     private Integer sti8;
+
+    @Type(type = "jsonb-node")
+    @Column(columnDefinition = "jsonb")
+    private JsonNode extra;
 
 /*
     @Basic(optional = false)

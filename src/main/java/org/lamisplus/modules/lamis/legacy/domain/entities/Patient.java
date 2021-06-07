@@ -162,14 +162,6 @@ public class Patient extends TransactionEntity implements Serializable {
     @JsonIgnore
     private List<Devolve> devolves;
 
-    /*@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Prescription> prescriptions;
-*/
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
-    @JsonIgnore
-    private List<Appointment> appointments;*/
-
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Eac> eacs;
@@ -233,12 +225,12 @@ public class Patient extends TransactionEntity implements Serializable {
     @PrePersist
     @PreUpdate
     public void update() {
-        surname = WordUtils.capitalize(surname);
-        otherNames = WordUtils.capitalize(otherNames);
+        surname = WordUtils.capitalize(StringUtils.lowerCase(surname));
+        otherNames = WordUtils.capitalize(StringUtils.lowerCase(otherNames));
 
-        address = WordUtils.capitalize(StringUtils.replace(address, ",", ", ").replaceAll("\\s+", " "));
-        nextOfKinAddress = WordUtils.capitalize(StringUtils.replace(StringUtils.trimToEmpty(nextOfKinAddress),
-                ",", ", ").replaceAll("\\s+", " "));
-        nextOfKin = WordUtils.capitalize(nextOfKin);
+        address = WordUtils.capitalize(StringUtils.replace(StringUtils.lowerCase(address), ",", ", ").replaceAll("\\s+", " "));
+        nextOfKinAddress = WordUtils.capitalize(StringUtils.replace(StringUtils.trimToEmpty(StringUtils.lowerCase(nextOfKinAddress)),
+            ",", ", ").replaceAll("\\s+", " "));
+        nextOfKin = WordUtils.capitalize(StringUtils.lowerCase(nextOfKin));
     }
 }

@@ -1,6 +1,5 @@
 package org.lamisplus.modules.lamis.legacy.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
@@ -12,9 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -248,7 +245,7 @@ public class ChronicCare extends TransactionEntity implements Serializable {
 
     @JoinColumn(name = "COMMUNITY_PHARMACY_ID")
     @ManyToOne
-    private CommunityPharmacy communityPharmacy;
+    private DDDOutlet DDDOutlet;
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")

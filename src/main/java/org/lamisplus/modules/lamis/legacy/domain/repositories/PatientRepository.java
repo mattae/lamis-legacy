@@ -33,12 +33,16 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     Long unstableClients(Long facilityId);
 
     @Query("select count(p) from Patient p join StatusHistory s on s.patient = p where s.status = 'LOST_TO_FOLLOWUP' or " +
-            "s.status = 'STOPPED_TREATMENT' and s.dateStatus <= current_date and p.caseManager = ?1 and p.facility.id = ?2")
+        "s.status = 'STOPPED_TREATMENT' and s.dateStatus <= current_date and p.caseManager = ?1 and p.facility.id = ?2")
     Long unstableClientsByCaseManager(CaseManager caseManager, Long facilityId);
 
     default Boolean isRecentTXNew(Patient patient) {
         return existsByIdAndDateStartedBetween(patient.getId(), LocalDate.now().minusMonths(12), LocalDate.now());
     }
+
+    @Query(value = "select * from patient where facility_id = ?1 and extra->'source'->>'type' = 'mobile' and " +
+        "cast(extra->'source'->>'date' as date) > ?2 and archived = false", nativeQuery = true)
+    List<Patient> getMobilePatients(Long facilityId, LocalDate date);
 
     Boolean existsByIdAndDateStartedBetween(Long patientId, LocalDate start, LocalDate end);
 

@@ -10,7 +10,6 @@ import org.lamisplus.modules.lamis.legacy.domain.entities.enumerations.DmocType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -23,15 +22,14 @@ public class Devolve extends TransactionEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Basic(optional = false)
     @NotNull
     @JoinColumn(name = "PATIENT_ID")
     @ManyToOne
     private Patient patient;
 
-    @JoinColumn(name = "COMMUNITY_PHARMACY_ID")
+    @JoinColumn(name = "ddd_outlet_id")
     @ManyToOne
-    private CommunityPharmacy communityPharmacy;
+    private DDDOutlet DDDOutlet;
 
     @Basic(optional = false)
     @NotNull

@@ -1,14 +1,14 @@
 basePackage: org.lamisplus.modules.lamis.legacy
 store: true
 name: LamisLegacyModule
-umdLocation: /across/resources/static/facility/js/bundles/lamis-facility-1.2.0.umd.js
+umdLocation: /across/resources/static/facility/js/bundles/lamis-facility.umd.js?version=1.8.0
 webModules:
-  - breadcrumb: FACILITY SWITCH
-    name: FacilityModule
-    path: admin/config/facility
-    position: 99
-  - name: CommunityPharmacyModule
-    path: admin/config/community-pharmacies
+    -   breadcrumb: FACILITY SWITCH
+        name: FacilityModule
+        path: admin/config/facility
+        position: 99
+    -   name: DddOutletModule
+        path: admin/config/ddd-outlets
 menus:
   - name: Administration
     state: admin
@@ -17,12 +17,12 @@ menus:
         name: Facility Configuration
         icon: keyboard_tab
         subs:
-          - state: facility
-            name: Facility Switch
-            icon: keyboard_tab
-            type: LINK
-          - state: community-pharmacies
-            name: Community Pharmacy
-            icon: keyboard_tab
-            type: LINK
+            -   state: facility
+                name: Facility Switch
+                icon: keyboard_tab
+                type: LINK
+            -   state: ddd-outlets
+                name: DDD Outlets
+                icon: keyboard_tab
+                type: LINK
 

@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '@alfresco/adf-core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Facility } from '../../model/facility.model';
-import { CommunityPharmacy } from '../../model/community-pharmacy.model';
-import { CommunityPharmacyService } from '../../services/community-pharmacy.service';
+import { DDDOutlet } from '../../model/ddd-outlet.model';
+import { DddOutletService } from '../../services/ddd-outlet.service';
 import { FacilityService } from '../../services/facility.service';
 
 @Component({
-    selector: 'community-pharmacies',
-    templateUrl: './community-pharmacy-list.component.html'
+    selector: 'ddd-outlets',
+    templateUrl: './ddd-outlet-list.component.html'
 })
-export class CommunityPharmacyListComponent implements OnInit {
+export class DddOutListComponent implements OnInit {
     page = 0;
-    communityPharmacies: CommunityPharmacy[];
+    communityPharmacies: DDDOutlet[];
     loading = false;
     public itemsPerPage: number = 10;
     public currentSearch: string = '';
@@ -20,7 +20,7 @@ export class CommunityPharmacyListComponent implements OnInit {
     display = 'list';
     facility: Facility;
 
-    constructor(private service: CommunityPharmacyService,
+    constructor(private service: DddOutletService,
                 private facilityService: FacilityService,
                 protected notification: NotificationService,
                 protected router: Router,

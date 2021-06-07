@@ -1,8 +1,12 @@
 package org.lamisplus.modules.lamis.legacy.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 import org.lamisplus.modules.base.domain.entities.Province;
 import org.lamisplus.modules.base.domain.entities.State;
@@ -17,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "Hts")
 @Data
+@EqualsAndHashCode(of = "id", callSuper = true)
 @SQLDelete(sql = "update hts set archived = true, last_modified = current_timestamp where id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "archived = false")
 public class Hts extends TransactionEntity implements Serializable {
@@ -35,6 +40,7 @@ public class Hts extends TransactionEntity implements Serializable {
 
     @Size(max = 25)
     @Column(name = "HOSPITAL_NUM")
+    @JsonIgnore
     private String hospitalNum;
 
     @Column(name = "DATE_VISIT")
@@ -58,13 +64,6 @@ public class Hts extends TransactionEntity implements Serializable {
 
     @Column(name = "DATE_BIRTH")
     private LocalDate dateBirth;
-
-    @Column(name = "AGE")
-    private Integer age;
-
-    @Size(max = 15)
-    @Column(name = "AGE_UNIT")
-    private String ageUnit;
 
     @Size(max = 50)
     @Column(name = "PHONE")
@@ -267,6 +266,10 @@ public class Hts extends TransactionEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Assessment assessment;
 
+    @Type(type = "jsonb-node")
+    @Column(columnDefinition = "jsonb")
+    private JsonNode extra;
+
     @ManyToOne
     private State state;
 
@@ -274,6 +277,7 @@ public class Hts extends TransactionEntity implements Serializable {
     private Province lga;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hts")
+    @JsonIgnore
     private List<IndexContact> indexContacts;
 
     @Override

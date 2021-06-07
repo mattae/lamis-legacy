@@ -25,7 +25,7 @@ public class PatientCurrentStatusService {
     public ClientStatus getStatus(Patient patient) {
         ClientStatus status = patient.getStatusAtRegistration();
         Optional<Date> date = pharmacyRepository.getLTFUDate(patient.getId());
-        Optional<StatusHistory> statusHistory = statusHistoryRepository.getCurrentStatusForPatientAt(patient, LocalDate.now());
+        Optional<StatusHistory> statusHistory = statusHistoryRepository.getCurrentStatusForPatientAt(patient, LocalDate.now().plusDays(1));
         if (!date.isPresent()) {
             if (patient.getStatusAtRegistration() != null) {
                 status = patient.getStatusAtRegistration();
@@ -50,6 +50,8 @@ public class PatientCurrentStatusService {
                         status = ClientStatus.ART_START;
                     } else if (history.getStatus().equals(ClientStatus.ART_TRANSFER_IN)) {
                         status = ClientStatus.ART_TRANSFER_IN;
+                    } else if (history.getStatus().equals(ClientStatus.RETURN_TO_CARE)) {
+                        status = ClientStatus.RETURN_TO_CARE;
                     } else {
                         status = ClientStatus.ART_START;
                     }

@@ -1,4 +1,4 @@
-export interface CommunityPharmacy {
+export interface DDDOutlet {
     id?: number;
     uuid?: string;
     name?: string;
@@ -10,4 +10,5 @@ export interface CommunityPharmacy {
     pin?: string;
     state?: any;
     lga?: any;
+    type?: string;
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommunityPharmacyResolve, ROUTES } from './services/cp.routes';
+import { DDDOutletResolve, ROUTES } from './services/ddd-outlet.routes';
 import {
     MatButtonModule,
     MatCardModule,
@@ -11,9 +11,9 @@ import {
     MatInputModule,
     MatSelectModule
 } from '@angular/material';
-import { CommunityPharmacyDetailsComponent } from './components/community-pharmacy/community-pharmacy.details.component';
-import { CommunityPharmacyEditComponent } from './components/community-pharmacy/community-pharmacy.edit.component';
-import { CommunityPharmacyListComponent } from './components/community-pharmacy/community-pharmacy-list.component';
+import { DddOutletDetailsComponent } from './components/community-pharmacy/ddd-outlet.details.component';
+import { DddOutletEditComponent } from './components/community-pharmacy/ddd-outlet.edit.component';
+import { DddOutListComponent } from './components/community-pharmacy/ddd-out-list.component';
 import { CoreModule } from '@alfresco/adf-core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LamisCoreModule } from '@lamis/web-core';
@@ -21,9 +21,9 @@ import { CovalentCommonModule, CovalentDialogsModule } from '@covalent/core';
 
 @NgModule({
     declarations: [
-        CommunityPharmacyDetailsComponent,
-        CommunityPharmacyEditComponent,
-        CommunityPharmacyListComponent
+        DddOutletDetailsComponent,
+        DddOutletEditComponent,
+        DddOutListComponent
     ],
     imports: [
         CommonModule,
@@ -41,12 +41,11 @@ import { CovalentCommonModule, CovalentDialogsModule } from '@covalent/core';
         NgbModule,
         LamisCoreModule
     ],
-    exports: [
-    ],
+    exports: [],
     providers: [
-        CommunityPharmacyResolve
+        DDDOutletResolve
     ]
 })
-export class CommunityPharmacyModule {
+export class DddOutletModule {
 
 }

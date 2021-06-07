@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <property name="autoIncrement" value="true"/>
 
@@ -1471,9 +1471,12 @@
         <sql>
             truncate dm_screen;
             truncate tb_screen;
-            insert into dm_screen(id, description) values(1, 'Increased frequency of urination'), (2, 'Increased water (fluid) intake');
-            insert into tb_screen(id, description) values(1, 'Have you been coughing for 2 weeks or more?'), (2, 'Do you have fever for 2 weeks or more?'),
-            (3, 'Are you losing weight?'), (4, 'Are you having night sweats?'), (5, 'Do you have any swellings in the neck or armpit?');
+            insert into dm_screen(id, description) values(1, 'Increased frequency of urination'), (2, 'Increased water
+            (fluid) intake');
+            insert into tb_screen(id, description) values(1, 'Have you been coughing for 2 weeks or more?'), (2, 'Do you
+            have fever for 2 weeks or more?'),
+            (3, 'Are you losing weight?'), (4, 'Are you having night sweats?'), (5, 'Do you have any swellings in the
+            neck or armpit?');
         </sql>
     </changeSet>
 
@@ -5639,10 +5642,14 @@
 
     <changeSet id="20200908141735-04" author="mattae">
         <sql>
-            update devolve set related_clinic_id = null where related_clinic_id in (select id from clinic where patient_id not in (select id from patient));
-            update devolve set related_pharmacy_id = null where related_pharmacy_id in (select id from pharmacy where patient_id not in (select id from patient));
-            update devolve set related_viral_load_id = null where related_viral_load_id in (select id from laboratory where patient_id not in (select id from patient));
-            update devolve set related_cd4_id = null where related_cd4_id in (select id from laboratory where patient_id not in (select id from patient));
+            update devolve set related_clinic_id = null where related_clinic_id in (select id from clinic where
+            patient_id not in (select id from patient));
+            update devolve set related_pharmacy_id = null where related_pharmacy_id in (select id from pharmacy where
+            patient_id not in (select id from patient));
+            update devolve set related_viral_load_id = null where related_viral_load_id in (select id from laboratory
+            where patient_id not in (select id from patient));
+            update devolve set related_cd4_id = null where related_cd4_id in (select id from laboratory where patient_id
+            not in (select id from patient));
             delete from clinic where patient_id not in (select id from patient);
             delete from status_history where patient_id not in (select id from patient);
             delete from patient_case_manager where patient_id not in (select id from patient);
@@ -5655,7 +5662,8 @@
 
     <changeSet id="20201009072338-01" author="mattae">
         <sql>
-            update status_history set status = 'HIV_EXPOSED_INFANT_NEGATIVE' where status = 'HIV_EXPOSED_INFANT_NEGATION';
+            update status_history set status = 'HIV_EXPOSED_INFANT_NEGATIVE' where status =
+            'HIV_EXPOSED_INFANT_NEGATION';
         </sql>
     </changeSet>
 
@@ -5695,10 +5703,14 @@
     <changeSet id="20201104192025-05" author="mattae">
         <sql>
             update patient set extra = null where extra = 'null';
-            UPDATE patient SET extra = jsonb_set(extra, '{art}', 'true') where (status_at_registration = 'HIV_NEGATIVE' and last_modified &lt; '2020-08-01') or status_at_registration != 'HIV_NEGATIVE';
-            UPDATE patient SET extra = '{"art": true}' where extra is null and (status_at_registration = 'HIV_NEGATIVE' and last_modified &lt; '2020-08-01') or status_at_registration != 'HIV_NEGATIVE';
-            UPDATE patient SET extra = jsonb_set(extra, '{prep}', '{"registered": true}') where status_at_registration = 'HIV_NEGATIVE' and last_modified >= '2020-08-01';
-            UPDATE patient SET extra = '{"prep":{"registered": true}}' where extra is null and status_at_registration = 'HIV_NEGATIVE' and last_modified >= '2020-08-01';
+            UPDATE patient SET extra = jsonb_set(extra, '{art}', 'true') where (status_at_registration = 'HIV_NEGATIVE'
+            and last_modified &lt; '2020-08-01') or status_at_registration != 'HIV_NEGATIVE';
+            UPDATE patient SET extra = '{"art": true}' where extra is null and (status_at_registration = 'HIV_NEGATIVE'
+            and last_modified &lt; '2020-08-01') or status_at_registration != 'HIV_NEGATIVE';
+            UPDATE patient SET extra = jsonb_set(extra, '{prep}', '{"registered": true}') where status_at_registration =
+            'HIV_NEGATIVE' and last_modified >= '2020-08-01';
+            UPDATE patient SET extra = '{"prep":{"registered": true}}' where extra is null and status_at_registration =
+            'HIV_NEGATIVE' and last_modified >= '2020-08-01';
         </sql>
     </changeSet>
 
@@ -5799,12 +5811,12 @@
         <dropColumn tableName="encounter" columnName="communitypharm_id"/>
     </changeSet>
 
-    <changeSet id="20201119130431-03" author="mattae">
+    <!--<changeSet id="20201119130431-03" author="mattae">
         <sql>
             update clinic set opportunistic_infections = null;
             update clinic set adheres = null;
         </sql>
-    </changeSet>
+    </changeSet>-->
 
     <changeSet id="20201211130629-01" author="mattae">
         <sql>
@@ -5827,5 +5839,131 @@
                 <constraints nullable="false"/>
             </column>
         </addColumn>
+    </changeSet>
+
+    <changeSet id="20210119140723-02" author="mattae">
+        <sql>
+            insert into lab_test(id, lab_test_category_id, description, unit) values
+            (50, 4, 'Visitect CD4', 'cells/ul'), (51, 4, 'TB-LAM', '+/-'), (52, 4, 'Cryptococcal Antigen', '+/-');
+        </sql>
+    </changeSet>
+
+    <changeSet id="20210119140723-03" author="mattae">
+        <addColumn tableName="biometric">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+
+        <addColumn tableName="hts">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+
+        <addColumn tableName="index_contact">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20210119140723-04" author="mattae">
+        <addColumn tableName="assessment">
+            <column name="extra" type="jsonb"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20210119140723-05" author="mattae">
+        <sql>
+            alter table index_contact add column if not exists date_birth date;
+            alter table index_contact add column if not exists hospital_num varchar(16);
+            alter table index_contact add column if not exists outcome varchar(16);
+            alter table index_contact add column if not exists relation varchar(16);
+            alter table hts add column if not exists hospital_num varchar(16);
+            alter table hts add column if not exists cam_code varchar(16);
+        </sql>
+    </changeSet>
+
+    <!--    <changeSet id="20210307133550-1" author="mattae">-->
+    <!--        <createTable tableName="facility_backstop">-->
+    <!--            <column name="facility_id" type="bigint">-->
+    <!--                <constraints nullable="false" primaryKey="true"/>-->
+    <!--            </column>-->
+    <!--            <column name="name" type="varchar(128)">-->
+    <!--                <constraints nullable="false"/>-->
+    <!--            </column>-->
+    <!--        </createTable>-->
+    <!--    </changeSet>-->
+
+    <!--    <changeSet id="20210307133550-2" author="mattae">-->
+    <!--        <loadData tableName="facility_backstop"-->
+    <!--                  encoding="UTF-8"-->
+    <!--                  file="installers/legacy/backstop.csv"-->
+    <!--                  separator=";"/>-->
+    <!--    </changeSet>-->
+
+    <changeSet id="20210317140723-06" author="mattae">
+        <sql>
+            update status_history set archived = true, last_modified = current_timestamp where status is null or status
+            = ''
+        </sql>
+    </changeSet>
+
+    <changeSet id="20210420131221-01" author="mattae">
+        <sqlFile path="installers/legacy/schema/status-fix.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20210420131221-02" author="mattae">
+        <sql>
+            update status_history set archived = true, last_modified = current_timestamp where date_status >
+            current_date
+        </sql>
+    </changeSet>
+
+    <changeSet id="20210420131221-04" author="mattae">
+        <addColumn tableName="community_pharmacy">
+            <column name="type" type="varchar(32)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20210420131221-05" author="mattae">
+        <sql>
+            update community_pharmacy set type = 'CPARP', last_modified = current_timestamp
+        </sql>
+    </changeSet>
+
+    <changeSet id="20210420131221-06" author="mattae">
+        <renameTable oldTableName="community_pharmacy" newTableName="ddd_outlet"/>
+        <renameColumn tableName="devolve" oldColumnName="community_pharmacy_id" newColumnName="ddd_outlet_id"/>
+    </changeSet>
+
+    <changeSet id="20210517083725-01" author="mattae">
+        <sql>
+            alter table biometric alter column last_modified set default current_timestamp;
+            update biometric set last_modified = current_timestamp where last_modified is null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20210517083725-02" author="mattae">
+        <sql>
+            with a as (
+            select ctid, row_number() over(partition by id order by id) rn from biometric
+            )
+            delete from biometric where ctid in (select ctid from a where rn != 1)
+        </sql>
+    </changeSet>
+
+    <changeSet id="20210517083725-03" author="mattae">
+        <sqlFile path="installers/legacy/schema/fix_biometric_pk.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20210517083725-04" author="mattae">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="patient" columnName="community_pharmacy_id"/>
+        </preConditions>
+        <dropColumn tableName="patient" columnName="community_pharmacy_id"/>
+    </changeSet>
+
+    <changeSet id="20210517083725-05" author="mattae">
+        <sqlFile path="installers/legacy/schema/date_started_fix.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20210517083725-06" author="mattae">
+        <sqlFile path="installers/legacy/schema/fix_delete_refill_restart.sql" splitStatements="false"/>
     </changeSet>
 </databaseChangeLog>

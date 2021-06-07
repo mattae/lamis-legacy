@@ -7,6 +7,7 @@
                        (rowClick)="select($event.value)">
             <data-columns>
                 <data-column key="name" title="Name" sortable="true"></data-column>
+                <data-column key="type" title="Type" sortable="true"></data-column>
                 <data-column key="pin" title="PIN" sortable="true"></data-column>
                 <data-column key="phone" title="Telephone Number" sortable="true"></data-column>
                 <data-column key="address" title="Address" class="full-width ellipsis-cell"></data-column>
@@ -28,10 +29,10 @@
         </adf-datatable>
     </div>
     <adf-empty-content
-            *ngIf="!communityPharmacies"
-            icon="blur_on"
-            [title]="'No Community Pharmacies found'"
-            [subtitle]="'No Community Pharmacies matching search criteria or no Community Pharmacies available'">
+        *ngIf="!communityPharmacies"
+        icon="blur_on"
+        [title]="'No DDD Outlets found'"
+        [subtitle]="'No DDD Outlet matching search criteria or no DDD Outlet available'">
     </adf-empty-content>
     <ngb-pagination [collectionSize]="totalItems"
                     [(page)]="page"
