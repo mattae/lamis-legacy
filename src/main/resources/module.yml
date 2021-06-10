@@ -1,7 +1,7 @@
 basePackage: org.lamisplus.modules.lamis.legacy
 store: true
 name: LamisLegacyModule
-umdLocation: /across/resources/static/facility/js/bundles/lamis-facility.umd.js?version=1.8.0
+umdLocation: /across/resources/static/facility/js/bundles/lamis-facility.umd.js?version=1.8.2
 webModules:
     -   breadcrumb: FACILITY SWITCH
         name: FacilityModule

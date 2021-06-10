@@ -5948,7 +5948,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="20210517083725-03" author="mattae">
+    <changeSet id="20210517083725-03-1" author="mattae">
         <sqlFile path="installers/legacy/schema/fix_biometric_pk.sql" splitStatements="false"/>
     </changeSet>
 
@@ -5959,11 +5959,17 @@
         <dropColumn tableName="patient" columnName="community_pharmacy_id"/>
     </changeSet>
 
-    <changeSet id="20210517083725-05" author="mattae">
+    <changeSet id="20210517083725-05-1" author="mattae">
         <sqlFile path="installers/legacy/schema/date_started_fix.sql" splitStatements="false"/>
     </changeSet>
 
     <changeSet id="20210517083725-06" author="mattae">
         <sqlFile path="installers/legacy/schema/fix_delete_refill_restart.sql" splitStatements="false"/>
+    </changeSet>
+
+    <changeSet id="20210517083725-07" author="mattae">
+        <sql>
+            SELECT dropsymtriggers();
+        </sql>
     </changeSet>
 </databaseChangeLog>

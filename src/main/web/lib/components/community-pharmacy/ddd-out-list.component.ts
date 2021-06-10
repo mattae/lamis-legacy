@@ -35,7 +35,7 @@ export class DddOutListComponent implements OnInit {
     }
 
     public select(data: any): any {
-        this.router.navigate(['..', 'community-pharmacies', data.obj.id, 'view'], {relativeTo: this.activatedRoute});
+        this.router.navigate(['..', 'ddd-outlets', data.obj.id, 'view'], {relativeTo: this.activatedRoute});
     }
 
     onPageChange(pageInfo) {

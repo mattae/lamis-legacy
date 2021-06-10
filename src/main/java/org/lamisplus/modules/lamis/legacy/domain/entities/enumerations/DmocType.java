@@ -2,7 +2,7 @@ package org.lamisplus.modules.lamis.legacy.domain.entities.enumerations;
 
 public enum DmocType {
     CARC("CARC"), CPARP("CPARP"), FAST_TRACK("Fast Track"), F_CARG("F-CARG"), S_CARG("S-CARG"),
-    ARC("Adolescent Refill Club"), MMD("MMD"), MMS("MMS");
+    ARC("Adolescent Refill Club"), MMD("MMD"), MMS("MMS"), DARF("DARF"), HOME_DELIVERY("Home Delivery");
 
     private String type;
 

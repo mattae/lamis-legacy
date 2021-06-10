@@ -26,13 +26,13 @@ export class DddOutletDetailsComponent implements OnInit {
     }
 
     edit() {
-        this.router.navigate(['/', 'admin', 'config', 'community-pharmacies', this.entity.id, 'edit']);
+        this.router.navigate(['/', 'admin', 'config', 'ddd-outlets', this.entity.id, 'edit']);
     }
 
     delete() {
         this._dialogService.openConfirm({
             title: 'Confirm',
-            message: 'Do you want to delete this Community Pharmacy, action cannot be reversed?',
+            message: 'Do you want to delete this DDD Outlet, action cannot be reversed?',
             cancelButton: 'No',
             acceptButton: 'Yes',
             width: '500px',
@@ -40,9 +40,9 @@ export class DddOutletDetailsComponent implements OnInit {
             if (accept) {
                 this.service.delete(this.entity.id).subscribe((res) => {
                     if (res.ok) {
-                        this.router.navigate(['admin', 'config', 'community-pharmacies'])
+                        this.router.navigate(['admin', 'config', 'ddd-outlets'])
                     } else {
-                        this.notificationService.showError('Error deleting Community Pharmacy, please try again')
+                        this.notificationService.showError('Error deleting DDD Outlet, please try again')
                     }
                 })
             } else {

@@ -29,7 +29,7 @@ public class Devolve extends TransactionEntity implements Serializable {
 
     @JoinColumn(name = "ddd_outlet_id")
     @ManyToOne
-    private DDDOutlet DDDOutlet;
+    private DDDOutlet dddOutlet;
 
     @Basic(optional = false)
     @NotNull

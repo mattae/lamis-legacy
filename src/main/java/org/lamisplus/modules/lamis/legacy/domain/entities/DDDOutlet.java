@@ -82,7 +82,8 @@ public class DDDOutlet implements Serializable, Persistable<Long> {
         uuid = UUID.randomUUID().toString();
 
         name = WordUtils.capitalize(StringUtils.lowerCase(name));
-        address = WordUtils.capitalize(StringUtils.replace(StringUtils.lowerCase(address), ",", ", ").replaceAll("\\s+", " "));
+        address = WordUtils.capitalize(StringUtils.replace(StringUtils.lowerCase(StringUtils.trimToEmpty(address)), ",",
+            ", ").replaceAll("\\s+", " "));
     }
 
     @PreUpdate
